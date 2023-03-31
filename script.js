@@ -3,51 +3,36 @@ let operator = null;
 let operand1 = null;
 let operand2 = null;
 let operandJustCalculated = null;
-
-// function addNumber(char) {
-//   output.value += char;
-// }
-
-// function addNumber(char) {
-//     if (operator === null) {
-//       output.value = "";
-//       operator = null;
-//     }
-//     output.value += char;
-//   }
+let numberList = [];
 
 function addNumber(char) {
-    if (operator === null) {
+    // If an operator was just calculated, clear the output value
+    if (operandJustCalculated) {
       output.value = "";
+      operandJustCalculated = false;
     }
-    // check if the output already contains a decimal point
+  
+    // Check if the output already contains a decimal point
     if (char === '.' && output.value.includes('.')) {
       return;
     }
-    output.value += char;
+  
+    // If an operator is set, add the number to the output value
+    if (operator !== null) {
+      output.value += char;
+    } else {
+      // If no operator is set, add the number to the output value
+      output.value += char;
+    }
   }
-
-// function addNumber(char) {
-//     if (operandJustCalculated !== null) {
-//       operand1 = operandJustCalculated;
-//       operandJustCalculated = null;
-//       output.value = "";
-//     }
-//     if (operator === null) {
-//       output.value = "";
-//     }
-//     if (char === '.' && output.value.includes('.')) {
-//       return;
-//     }
-//     output.value += char;
-//   }
-
-
+  
 function clearOutput() {
   output.value = '';
   operator = null;
   operand1 = null;
   operand2 = null;
+//   clearNumberList();
+  operandJustCalculated = false;
 }
 
 function setOperator(op) {
@@ -83,5 +68,7 @@ function calculate() {
     operator = null;
     operand1 = result;
     operand2 = null;
+    // Newline below
+    operandJustCalculated = true;   
   }
 }
